@@ -53,6 +53,9 @@ public class RobotContainer {
       xBoxButtons[i] = new JoystickButton(xBoxController, (i + 1));
     for (int i = 0; i < xBoxPOVButtons.length; i++)
       xBoxPOVButtons[i] = new POVButton(xBoxController, (i * 90));
+
+    xBoxLeftTrigger = new Button(() -> xBoxController.getLeftTriggerAxis() > 0.2);
+    xBoxRightTrigger = new Button(() -> xBoxController.getRightTriggerAxis() > 0.2);
   }
 
   /**
