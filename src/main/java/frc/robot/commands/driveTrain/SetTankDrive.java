@@ -7,7 +7,7 @@ package frc.robot.commands.driveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ExampleSubsystem;
 
-public class SetArcadeDrive extends CommandBase {
+public class SetTankDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   // Declare subsystem
@@ -15,7 +15,7 @@ public class SetArcadeDrive extends CommandBase {
   /**
    *
    */
-  public SetArcadeDrive(/*Parameters*/) {
+  public SetTankDrive(/*Parameters*/) {
     //Add subsystem requirements
 
   }

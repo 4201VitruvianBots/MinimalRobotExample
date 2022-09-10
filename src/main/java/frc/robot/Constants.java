@@ -21,4 +21,22 @@ public final class Constants {
         public static final int rightJoystick = 1;
         public static final int xBoxController = 2;
     }
+
+    public static final class DriveTrain {
+        // Number identification for the CAN motors
+        public static final int leftFrontDriveMotor = 20;
+        public static final int leftRearDriveMotor = 21;
+        public static final int rightFrontDriveMotor = 22;
+        public static final int rightRearDriveMotor = 23;
+
+        public enum MotorPosition {
+            LEFT_FRONT,
+            LEFT_REAR,
+            RIGHT_FRONT,
+            RIGHT_REAR
+        }
+
+        public static final double kMaxVelocityMetersPerSecond = Units.feetToMeters(16);
+        public static final double kWheelDiameterMeters = Units.feetToMeters(0.5);
+    }
 }
