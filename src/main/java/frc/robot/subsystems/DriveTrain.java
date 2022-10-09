@@ -4,18 +4,71 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   // Initialize the motors
+  TalonFX[] motors = {
+    new TalonFX(Constants.DriveTrain.leftRearDriveMotor),
+    new TalonFX(Constants.DriveTrain.rightRearDriveMotor),
+    new TalonFX(Constants.DriveTrain.leftFrontDriveMotor),
+    new TalonFX(Constants.DriveTrain.rightFrontDriveMotor)
+  };
 
+  /*    _____
+    2 o|  ^  |o 3
+       |     |
+    0 o|_____|o 1
+  */
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-
+    configureCTREMotors();
   }
 
   public void configureCTREMotors() {
+    for (TalonFX motor : motors) {
+      // You don't have to type this all out, I copy-pasted it
+      motor.configFactoryDefault();
+
+      motor.configOpenloopRamp(0.1);
+      motor.configClosedloopRamp(0.1);
+      motor.setNeutralMode(NeutralMode.Brake);
+      motor.configForwardSoftLimitEnable(false);
+      motor.configReverseSoftLimitEnable(false);
+      motor.config_kP(0, 0.1);
+      motor.configOpenloopRamp(0.25);
+      motor.configClosedloopRamp(0.1);
+
+      motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 20, 60, 0.1));
+
+      motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    }
+
+    /*    _____
+      2 o|  ^  |o 3
+        |     |
+      0 o|_____|o 1
+    */
+
+    // Inverting right motors
+    motors[1].setInverted(true);
+    motors[3].setInverted(true);
+
+    // Left front motor follows left rear
+    motors[2].set(ControlMode.Follower, motors[0].getBaseID());
+
+    // Right front motor follows right rear
+    motors[3].set(ControlMode.Follower, motors[1].getBaseID());
+
 
   }
 
