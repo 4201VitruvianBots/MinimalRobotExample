@@ -80,19 +80,30 @@ public class DriveTrain extends SubsystemBase {
   }
 
   /**
-   * On a scale from 0.0 to 1.0, how fast is each wheel spinning?
+   * On a scale from -1.0 to 1.0, how fast is each wheel spinning?
    */
   public void setMotorPercentOutput(double leftOutput, double rightOutput) {
     motors[0].set(ControlMode.PercentOutput, leftOutput);
     motors[1].set(ControlMode.PercentOutput, rightOutput);
   }
 
-  public void setMotorArcadeDrive(/*Parameters*/) {
+  /**
+   * throttle: forward/backward -1.0 to 1.0
+   * turn: -1.0 (counterclockwise) to 1.0 (clockwise)
+   */
+  public void setMotorArcadeDrive(double throttle, double turn) {
+    double leftOutput = throttle + turn;
+    double rightOutput = throttle - turn;
 
-  }
+    // If either output has an absolute value greater than 1
+    if (Math.abs(leftOutput) > 1 || Math.abs(rightOutput) > 1) {
+      double reductionFactor = Math.max(Math.abs(leftOutput), Math.abs(rightOutput));
+      leftOutput /= reductionFactor;
+      // Same as: leftOutput = leftOutput / reductionFactor;
+      rightOutput /= reductionFactor;
+    }
 
-  public void setMotorTankDrive(/*Parameters*/) {
-
+    setMotorPercentOutput(leftOutput, rightOutput);
   }
 
   @Override
