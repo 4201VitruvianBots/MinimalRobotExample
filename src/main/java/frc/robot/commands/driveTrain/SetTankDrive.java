@@ -4,20 +4,33 @@
 
 package frc.robot.commands.driveTrain;
 
+import java.util.DoubleSummaryStatistics;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
 public class SetTankDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   // Declare subsystem
+  DriveTrain m_driveTrain;
+  
+  DoubleSupplier m_leftOutput;
+  DoubleSupplier m_rightOutput;
 
   /**
    *
    */
-  public SetTankDrive(/*Parameters*/) {
+  public SetTankDrive(DriveTrain driveTrain, DoubleSupplier leftOutput, DoubleSupplier rightOutput) {
+    // Copy constructor parameters to class variables
+    m_driveTrain = driveTrain;
+    m_leftOutput = leftOutput;
+    m_rightOutput = rightOutput;
+    
     //Add subsystem requirements
-
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +39,9 @@ public class SetTankDrive extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_driveTrain.setMotorPercentOutput(m_leftOutput.getAsDouble(), m_rightOutput.getAsDouble());
+  }
 
   // Called once the command ends or is interrupted.
   @Override

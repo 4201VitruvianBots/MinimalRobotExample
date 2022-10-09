@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.driveTrain.SetArcadeDrive;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -26,6 +28,8 @@ public class RobotContainer {
   static Joystick rightJoystick = new Joystick(Constants.USB.rightJoystick);
   static XboxController xBoxController = new XboxController(Constants.USB.xBoxController);
 
+  DriveTrain m_driveTrain = new DriveTrain();
+
   public Button[] leftButtons = new Button[2];
   public Button[] rightButtons = new Button[2];
   public Button[] xBoxButtons = new Button[10];
@@ -36,6 +40,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    m_driveTrain.setDefaultCommand(new SetArcadeDrive(m_driveTrain, leftJoystick::getY, rightJoystick::getX));
   }
 
   /**
