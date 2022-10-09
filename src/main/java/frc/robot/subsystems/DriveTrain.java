@@ -55,7 +55,7 @@ public class DriveTrain extends SubsystemBase {
 
     /*    _____
       2 o|  ^  |o 3
-        |     |
+         |     |
       0 o|_____|o 1
     */
 
@@ -68,20 +68,23 @@ public class DriveTrain extends SubsystemBase {
 
     // Right front motor follows right rear
     motors[3].set(ControlMode.Follower, motors[1].getBaseID());
-
-
-  }
-
-  public void setVoltageOutput(/*Parameters*/) {
+   
 
   }
 
-  public void setWheelSpeeds(/*Parameters*/) {
-
+  public void setWheelSpeeds(double leftSpeed, double rightSpeed) {
+    setMotorPercentOutput(
+      leftSpeed / Constants.DriveTrain.kMaxVelocityMetersPerSecond,
+      rightSpeed / Constants.DriveTrain.kMaxVelocityMetersPerSecond
+    );
   }
 
-  public void setMotorPercentOutput(/*Parameters*/) {
-
+  /**
+   * On a scale from 0.0 to 1.0, how fast is each wheel spinning?
+   */
+  public void setMotorPercentOutput(double leftOutput, double rightOutput) {
+    motors[0].set(ControlMode.PercentOutput, leftOutput);
+    motors[1].set(ControlMode.PercentOutput, rightOutput);
   }
 
   public void setMotorArcadeDrive(/*Parameters*/) {
