@@ -8,19 +8,20 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   // Initialize the motors
-  TalonFX[] motors = {
-    new TalonFX(Constants.DriveTrain.leftRearDriveMotor),
-    new TalonFX(Constants.DriveTrain.rightRearDriveMotor),
-    new TalonFX(Constants.DriveTrain.leftFrontDriveMotor),
-    new TalonFX(Constants.DriveTrain.rightFrontDriveMotor)
+  VictorSPX[] motors = {
+    new VictorSPX(Constants.DriveTrain.leftRearDriveMotor),
+    new VictorSPX(Constants.DriveTrain.rightRearDriveMotor),
+    new VictorSPX(Constants.DriveTrain.leftFrontDriveMotor),
+    new VictorSPX(Constants.DriveTrain.rightFrontDriveMotor)
   };
 
   /*    _____
@@ -35,7 +36,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void configureCTREMotors() {
-    for (TalonFX motor : motors) {
+    for (VictorSPX motor : motors) {
       // You don't have to type this all out, I copy-pasted it
       motor.configFactoryDefault();
 
@@ -64,10 +65,10 @@ public class DriveTrain extends SubsystemBase {
     motors[3].setInverted(true);
 
     // Left front motor follows left rear
-    motors[2].set(ControlMode.Follower, motors[0].getBaseID());
+    motors[2].set(ControlMode.PercentOutput, motors[0].getBaseID());
 
     // Right front motor follows right rear
-    motors[3].set(ControlMode.Follower, motors[1].getBaseID());
+    motors[3].set(ControlMode.PercentOutput, motors[1].getBaseID());
    
 
   }
