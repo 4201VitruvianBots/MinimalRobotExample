@@ -7,9 +7,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+// import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+// import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -49,7 +49,8 @@ public class DriveTrain extends SubsystemBase {
       motor.configOpenloopRamp(0.25);
       motor.configClosedloopRamp(0.1);
 
-      motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 20, 60, 0.1));
+      // motor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 20, 60, 0.1)); maybe try using configAllSettings(forwardLimitSwitchDifferent) ?
+
 
       motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     }
