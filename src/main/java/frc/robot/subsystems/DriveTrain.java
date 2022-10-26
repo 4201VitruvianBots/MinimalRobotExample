@@ -4,12 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 // import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 
-// import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.MotControllerJNI;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -53,6 +55,8 @@ public class DriveTrain extends SubsystemBase {
 
 
       motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+
+      
     }
 
     /*    _____
@@ -80,6 +84,9 @@ public class DriveTrain extends SubsystemBase {
       rightSpeed / Constants.DriveTrain.kMaxVelocityMetersPerSecond
     );
   }
+ 
+
+  
 
   /**
    * On a scale from -1.0 to 1.0, how fast is each wheel spinning?
