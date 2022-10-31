@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -28,11 +29,27 @@ public class Turret extends SubsystemBase {
   private CANSparkMax m_motor;
   private XboxController xController;
 
+  private PIDController turretPID;
+  
+  private final double Kp = 0.5; // Example values
+  private final double Ki = 0.5; // Example values
+  private final double Kd = 0.8; // Example values
+
   public Turret() {
+    // Motor setup
     m_motor = new CANSparkMax(64, MotorType.kBrushless);
     m_motor.restoreFactoryDefaults();
 
+    // Controller setup
     xController = new XboxController(0);
+
+    // PID Control
+    turretPID = new PIDController(Kp, Ki, Kd);
+
+    turretPID.setSetpoint(0.24); // Example values
+    turretPID.setTolerance(0.7); // Example values
+
+    turretPID.enableContinuousInput(0, 1); // Example values
   }
 
   @Override
